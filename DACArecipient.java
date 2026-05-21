@@ -1,12 +1,10 @@
 /**
  * Represents one person receiving deferred action for childhood arrivals (DACA).
  * 
- * <TODO add @author info here for all group-mates!>
- *
- *	@version 1.1
+ * @author Your Name
+ * @version 1.1
  **/
 
-//TODO: Complete UML class diagram
 /* UML CLASS DIAGRAM:
 -----------------------------------------
 					DACArecipient
@@ -23,8 +21,8 @@
 + getSurname() : String
 + getGivenName() : String
 + getUscisNumber() : String
-+ getCountyOfOrigin() : String
-+ getBirthDay() : int
++ getCountryOfOrigin() : String
++ getBirthday() : int
 + getValidFromDate() : int
 + getExpirationDate() : int
 + getSex() : char
@@ -36,7 +34,11 @@
 + setValidFromDate(validFromDate : int) : void
 + setExpirationDate(expirationDate : int) : void
 + setSex(sex : char) : void
-+ setAll(surname:String, givenName:String, uscisNumber:String, countryOfOrigin:String, birthday:int, validFromDate:int, expirationDate:int,sex:char) : void
++ setAll(...) : void
++ toString() : String
++ equals(other : DACArecipient) : boolean
++ printCard() : String
++ jdnToDate(J : int) : String
 -----------------------------------------
 */
 
@@ -54,32 +56,118 @@ public class DACArecipient
         ASCII_ART_8 = "       '.--..--.'     ",
         ASCII_ART_9 = "         `\"\"\"\"\"` ",
         ASCII_CREDIT ="   ascii art by: jgs    ";
+
 	private static final String TITLE_USA = "UNITED STATES OF AMERICA",
 				TITLE_EAC = "EMPLOYMENT AUTHORIZATION CARD";
+
 	private static final String LABEL_SURNAME = "Surname", 
-				LABEL_GIVEN_NAME = "Given Name", LABEL_USCIS_NUM = "USCIS#",
+				LABEL_GIVEN_NAME = "Given Name",
+				LABEL_USCIS_NUM = "USCIS#",
 				LABEL_BIRTH_COUNTRY = "Country of Birth",
 				LABEL_BIRTH_DATE = "Date of Birth",
-				LABEL_SEX = "Sex", LABEL_VALID_DATE = "Valid From:", LABEL_EXPIRE_DATE = "Card Expires:",
+				LABEL_SEX = "Sex",
+				LABEL_VALID_DATE = "Valid From:",
+				LABEL_EXPIRE_DATE = "Card Expires:",
 				LABEL_REENTRY_DISCLAIMER = "NOT VALID FOR REENTRY TO U.S.";
 
 	/***** INSTANCE VARIABLES *****/
-	//DONE: Declare the instance variables. 
   private String surname;
   private String givenName;
   private String uscisNumber;
   private String countryOfOrigin;
-  private int birthday, validFromDate, expirationDate;
+  private int birthday;
+  private int validFromDate;
+  private int expirationDate;
   private char sex;
 
 	/***** ACCESSORS *****/
-	//TODO: Copy the accessors you wrote in the previous lab and insert them here.
+
+  public String getSurname()
+  {
+    return surname;
+  }
+
+  public String getGivenName()
+  {
+    return givenName;
+  }
+
+  public String getUscisNumber()
+  {
+    return uscisNumber;
+  }
+
+  public String getCountryOfOrigin()
+  {
+    return countryOfOrigin;
+  }
+
+  public int getBirthday()
+  {
+    return birthday;
+  }
+
+  public int getValidFromDate()
+  {
+    return validFromDate;
+  }
+
+  public int getExpirationDate()
+  {
+    return expirationDate;
+  }
+
+  public char getSex()
+  {
+    return sex;
+  }
 
 	/***** MUTATORS *****/
-	//TODO: Copy the mutators you wrote in the previous lab and insert them here.
-    
-  /**DESCRIPTION: Assigns parameters to corresponding instance variables of calling DACArecipient. */
-	public void setAll(String surname, String givenName, String uscisNumber, String countryOfOrigin, int birthday, int validFromDate, int expirationDate, char sex)
+
+  public void setSurname(String surname)
+  {
+    this.surname = surname;
+  }
+
+  public void setGivenName(String givenName)
+  {
+    this.givenName = givenName;
+  }
+
+  public void setUscisNumber(String uscisNumber)
+  {
+    this.uscisNumber = uscisNumber;
+  }
+
+  public void setCountryOfOrigin(String countryOfOrigin)
+  {
+    this.countryOfOrigin = countryOfOrigin;
+  }
+
+  public void setBirthday(int birthday)
+  {
+    this.birthday = birthday;
+  }
+
+  public void setValidFromDate(int validFromDate)
+  {
+    this.validFromDate = validFromDate;
+  }
+
+  public void setExpirationDate(int expirationDate)
+  {
+    this.expirationDate = expirationDate;
+  }
+
+  public void setSex(char sex)
+  {
+    this.sex = sex;
+  }
+
+  /** DESCRIPTION: Assigns parameters to corresponding instance variables. */
+	public void setAll(String surname, String givenName, String uscisNumber,
+                     String countryOfOrigin, int birthday,
+                     int validFromDate, int expirationDate, char sex)
 	{
 		this.surname = surname;
 		this.givenName = givenName;
@@ -92,18 +180,38 @@ public class DACArecipient
 	}
 
 	/***** OTHER REQUIRED METHODS *****/
-	//TODO: Write the toString method, remember to include documentation 
 
+  /** DESCRIPTION: Returns all instance variable values as a String. */
+  public String toString()
+  {
+    return "Surname: " + surname +
+           ", Given Name: " + givenName +
+           ", USCIS Number: " + uscisNumber +
+           ", Country of Origin: " + countryOfOrigin +
+           ", Birthday: " + birthday +
+           ", Valid From Date: " + validFromDate +
+           ", Expiration Date: " + expirationDate +
+           ", Sex: " + sex;
+  }
 
-	//TODO: Write the equals method, remember to include documentation
- 
-  
-	//TODO: Revise the following method to use the jdnToDate method to format the three dates.
-  /** DESCRIPTION: Prints to the console the Employment Authorization Card using the calling DACArecipient's instance variables.*/
+  /** DESCRIPTION: Determines whether two DACArecipient objects are equal. */
+  public boolean equals(DACArecipient other)
+  {
+    return surname.equals(other.surname) &&
+           givenName.equals(other.givenName) &&
+           uscisNumber.equals(other.uscisNumber) &&
+           countryOfOrigin.equals(other.countryOfOrigin) &&
+           birthday == other.birthday &&
+           validFromDate == other.validFromDate &&
+           expirationDate == other.expirationDate &&
+           sex == other.sex;
+  }
+
+  /** DESCRIPTION: Prints Employment Authorization Card. */
   public String printCard()
   {
 		String card;
-		
+
     card = String.format("╔══════════════════════════════════════════════════════════════════════╗%n");
 		card += String.format("║%35s%35s║%n", TITLE_USA, "");
 		card += String.format("║%60s%10s║%n", TITLE_EAC, "");
@@ -111,38 +219,59 @@ public class DACArecipient
 		card += String.format("║%-25s%-45s║%n", ASCII_ART_0, surname);
 		card += String.format("║%-25s%-45S║%n", ASCII_ART_1, LABEL_GIVEN_NAME);
 		card += String.format("║%-25s%-45s║%n", ASCII_ART_2, givenName);
-		
+
 		card += String.format("║%-25s%-45S║%n", ASCII_ART_3, LABEL_USCIS_NUM);
 		card += String.format("║%-25s%-45s║%n", ASCII_ART_4, uscisNumber);
-		
+
 		card += String.format("║%-25s%-45S║%n", ASCII_ART_5, LABEL_BIRTH_COUNTRY);
 		card += String.format("║%-25s%-45s║%n", ASCII_ART_6, countryOfOrigin);
-		card += String.format("║%-25s%-15S%-30S║%n", ASCII_ART_7, LABEL_BIRTH_DATE, LABEL_SEX);
-		card += String.format("║%-25s%-15d%-30s║%n", ASCII_ART_8, birthday, sex);
-		card += String.format("║%-25s%-15S%-30d║%n", ASCII_ART_9, LABEL_VALID_DATE, validFromDate);
-		card += String.format("║%-25s%-15S%-30d║%n", "", LABEL_EXPIRE_DATE, expirationDate);
-		card += String.format("║%-25s%-45s║%n", ASCII_CREDIT, LABEL_REENTRY_DISCLAIMER);
+
+		card += String.format("║%-25s%-15S%-30S║%n",
+                          ASCII_ART_7,
+                          LABEL_BIRTH_DATE,
+                          LABEL_SEX);
+
+		card += String.format("║%-25s%-15s%-30s║%n",
+                          ASCII_ART_8,
+                          jdnToDate(birthday),
+                          sex);
+
+		card += String.format("║%-25s%-15S%-30s║%n",
+                          ASCII_ART_9,
+                          LABEL_VALID_DATE,
+                          jdnToDate(validFromDate));
+
+		card += String.format("║%-25s%-15S%-30s║%n",
+                          "",
+                          LABEL_EXPIRE_DATE,
+                          jdnToDate(expirationDate));
+
+		card += String.format("║%-25s%-45s║%n",
+                          ASCII_CREDIT,
+                          LABEL_REENTRY_DISCLAIMER);
+
 		card += String.format("╚══════════════════════════════════════════════════════════════════════╝%n");
+
 		return card;
   }
 
-	/**DESCRIPTION: Converts a Julian Day Number to Julian calendar date formatted as MM/DD/YYYY using algorithm adapted from https://en.wikipedia.org/wiki/Julian_day.*/
+	/** DESCRIPTION: Converts Julian Day Number to MM/DD/YYYY format. */
   public static String jdnToDate(int J)
 	{
 		int B, C, e, f, g, h, D, M, Y;
-		
-		B=274277;
-		C=-38;
-		f=J + 1401 + (((4*J+B)/146097)*3)/4+C;
-		e=4*f+3;
-		g=(e%1461)/4;
-		h=5*g+2;
-		D=((h%153)/5)+1;
-		M=((h/153)+2)%12+1;
-		Y=(e/1461)-4716+(12+2-M)/12;
 
-		return String.format("%02d/%02d/%04d",M,D,Y);
+		B = 274277;
+		C = -38;
+
+		f = J + 1401 + (((4 * J + B) / 146097) * 3) / 4 + C;
+		e = 4 * f + 3;
+		g = (e % 1461) / 4;
+		h = 5 * g + 2;
+
+		D = ((h % 153) / 5) + 1;
+		M = ((h / 153) + 2) % 12 + 1;
+		Y = (e / 1461) - 4716 + (12 + 2 - M) / 12;
+
+		return String.format("%02d/%02d/%04d", M, D, Y);
 	}
-	
-
 }
